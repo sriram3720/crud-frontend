@@ -1,10 +1,7 @@
 import StudentEnrollment from "./component/studenEnroll";
 
 function App() {
-  return (
-   <StudentEnrollment/>
-  );
+  return <StudentEnrollment />;
 }
 
 export default App;
-

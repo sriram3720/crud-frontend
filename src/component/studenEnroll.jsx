@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'antd';
-import axios from 'axios';
-import "./index.css"
+import React, { useState, useEffect } from "react";
+import { Table, Button } from "antd";
+import axios from "axios";
+import "./index.css";
 
 function StudentEnrollment() {
   const [students, setStudents] = useState([]);
-  const [newStudent, setNewStudent] = useState({ id: null, name: '', course: '', dob: '', phoneno: '' });
+  const [newStudent, setNewStudent] = useState({
+    id: null,
+    name: "",
+    course: "",
+    dob: "",
+    phoneno: "",
+  });
   const [editingStudent, setEditingStudent] = useState(null);
 
   useEffect(() => {
@@ -14,10 +20,10 @@ function StudentEnrollment() {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/students');
+      const response = await axios.get("http://localhost:5000/api/students");
       setStudents(response.data);
     } catch (error) {
-      console.error('Error fetching students:', error);
+      console.error("Error fetching students:", error);
     }
   };
 
@@ -28,12 +34,12 @@ function StudentEnrollment() {
 
   const addStudent = async () => {
     try {
-      await axios.post('http://localhost:5000/api/students', newStudent);
+      await axios.post("http://localhost:5000/api/students", newStudent);
       fetchStudents();
-      setNewStudent({ id: null, name: '', course: '', dob: '', phoneno: '' });
+      setNewStudent({ id: null, name: "", course: "", dob: "", phoneno: "" });
     } catch (error) {
-      console.error('Error adding student:', error);
-      alert("invald input")
+      console.error("Error adding student:", error);
+      alert("invald input");
     }
   };
 
@@ -42,61 +48,69 @@ function StudentEnrollment() {
       await axios.delete(`http://localhost:5000/api/students/${id}`);
       fetchStudents();
     } catch (error) {
-      console.error('Error deleting student:', error);
+      console.error("Error deleting student:", error);
     }
   };
 
   const editStudent = (student) => {
     setEditingStudent(student);
-    setNewStudent({ id: student.id, name: student.name, course: student.course, dob: student.dob, phoneno: student.phoneno });
+    setNewStudent({
+      id: student.id,
+      name: student.name,
+      course: student.course,
+      dob: student.dob,
+      phoneno: student.phoneno,
+    });
   };
- 
 
   const cancelEdit = () => {
     setEditingStudent(null);
-    setNewStudent({ id: null, name: '', course: '', dob: '', phoneno: '' });
+    setNewStudent({ id: null, name: "", course: "", dob: "", phoneno: "" });
   };
 
   const updateStudent = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/students/${editingStudent.id}`, newStudent);
+      await axios.put(
+        `http://localhost:5000/api/students/${editingStudent.id}`,
+        newStudent
+      );
       fetchStudents();
       setEditingStudent(null);
-      setNewStudent({ id: null, name: '', course: '', dob: '', phoneno: '' });
+      setNewStudent({ id: null, name: "", course: "", dob: "", phoneno: "" });
     } catch (error) {
-      console.error('Error updating student:', error);
+      console.error("Error updating student:", error);
     }
   };
-  
+
   const columns = [
     {
-      title: 'id',
-      dataIndex: 'id',
-      key: 'id',
+      title: "id",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Course',
-      dataIndex: 'course',
-      key: 'course',
+      title: "Course",
+      dataIndex: "course",
+      key: "course",
     },
     {
-      title: 'DOB',
-      dataIndex: 'dob',
-      key: 'dob',
+      title: "DOB",
+      dataIndex: "dob",
+      key: "dob",
     },
     {
-      title: 'phoneno',
-      dataIndex: 'phoneno',
-      key: 'phoneno',
+      title: "phoneno",
+      dataIndex: "phoneno",
+      key: "phoneno",
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: "Action",
+      key: "action",
       render: (text, student) => (
         <span>
           <Button type="primary" onClick={() => editStudent(student)}>
@@ -113,15 +127,14 @@ function StudentEnrollment() {
     <div className="container">
       <h1>Student Enrollment</h1>
       <div>
-        <h2>{editingStudent ? 'Edit Student' : 'Add Student'}</h2>
+        <h2>{editingStudent ? "Edit Student" : "Add Student"}</h2>
         <input
           type="number"
           name="id"
           placeholder="id"
-          value={newStudent.id || ''}
+          value={newStudent.id || ""}
           onChange={handleInputChange}
           min="1"
-          step="1"
         />
         <input
           type="text"
@@ -129,14 +142,20 @@ function StudentEnrollment() {
           placeholder="Name"
           value={newStudent.name}
           onChange={handleInputChange}
-        />      
-<select name="course"  type="text"   placeholder="Course"  value={newStudent.course}   onChange={handleInputChange}>
-  <option value="EEE">EEE</option>
-  <option value="ECE">ECE</option>
-  <option value="IT">IT</option>
-  <option value="BME">BME</option>
-  <option value="MECH">MECH</option>
-</select>
+        />
+        <select
+          name="course"
+          type="text"
+          placeholder="Course"
+          value={newStudent.course}
+          onChange={handleInputChange}
+        >
+          <option value="EEE">EEE</option>
+          <option value="ECE">ECE</option>
+          <option value="IT">IT</option>
+          <option value="BME">BME</option>
+          <option value="MECH">MECH</option>
+        </select>
         <input
           type="date"
           name="dob"
@@ -165,9 +184,7 @@ function StudentEnrollment() {
         {students.length === 0 ? (
           <p>No students available</p>
         ) : (
-
-        <Table dataSource={students} columns={columns} />
-          
+          <Table dataSource={students} columns={columns} />
         )}
       </div>
     </div>
