@@ -34,7 +34,7 @@ function StudentManagement() {
       setNewStudent({ id: null, name: '', course: '', dob: '', phoneno: '' });
     } catch (error) {
       console.error('Error adding student:', error);
-      alert("id is already taken")
+      alert("invald input")
     }
   };
 
