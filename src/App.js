@@ -1,8 +1,8 @@
-import StudentManagement from "./component/studenEnroll";
+import StudentEnrollment from "./component/studenEnroll";
 
 function App() {
   return (
-   <StudentManagement/>
+   <StudentEnrollment/>
   );
 }
 

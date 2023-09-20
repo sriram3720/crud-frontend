@@ -3,11 +3,10 @@ import { Table, Button } from 'antd';
 import axios from 'axios';
 import "./index.css"
 
-function StudentManagement() {
+function StudentEnrollment() {
   const [students, setStudents] = useState([]);
   const [newStudent, setNewStudent] = useState({ id: null, name: '', course: '', dob: '', phoneno: '' });
   const [editingStudent, setEditingStudent] = useState(null);
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchStudents();
@@ -130,10 +129,8 @@ function StudentManagement() {
           placeholder="Name"
           value={newStudent.name}
           onChange={handleInputChange}
-        />
-  
-        
-<select name="course" id="cars" type="text"   placeholder="Course"  value={newStudent.course}   onChange={handleInputChange}>
+        />      
+<select name="course"  type="text"   placeholder="Course"  value={newStudent.course}   onChange={handleInputChange}>
   <option value="EEE">EEE</option>
   <option value="ECE">ECE</option>
   <option value="IT">IT</option>
@@ -177,4 +174,4 @@ function StudentManagement() {
   );
 }
 
-export default StudentManagement;
+export default StudentEnrollment;
